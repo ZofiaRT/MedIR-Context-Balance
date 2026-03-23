@@ -1,3 +1,7 @@
 python-terrier
 ir_datasets
 pandas
+sentence-transformers
+torch
+faiss-cpu
+pyterrier-dr
