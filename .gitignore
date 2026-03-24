@@ -9,6 +9,7 @@ var/
 
 .ipynb_checkpoints/
 
+src/cord_19_index
 venv/
 env/
 .venv/
