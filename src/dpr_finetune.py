@@ -100,10 +100,7 @@ def fit_sentence_transformer(
     batch_size: int = 16,
     warmup_ratio: float = 0.1,
 ) -> str:
-    """
-    Fine-tune using sentence-transformers (MultipleNegativesRankingLoss).
 
-    """
     try:
         from sentence_transformers import InputExample, SentenceTransformer, losses
         from torch.utils.data import DataLoader
@@ -130,7 +127,6 @@ def fit_sentence_transformer(
 
 
 def _smoke_test_training() -> None:
-    """1–2 step fine-tune on toy pairs; writes a temp model dir."""
     import tempfile
 
     tiny_pairs = [
@@ -276,7 +272,7 @@ if __name__ == "__main__":
             adapter,
             df_all,
             qrels,
-            verbosity=args.verbosity,  # type: ignore[arg-type]
+            verbosity=args.verbosity,  
             min_label=args.min_label,
         )
         if args.max_pairs is not None and len(pairs) > args.max_pairs:
