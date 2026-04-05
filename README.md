@@ -12,6 +12,19 @@ balance between exact lexical matching and semantic intent. We study the **TREC-
 collection, evaluating query performance across three distinct levels of verbosity: **Title (Short)**, **Description
 (Medium)**, and **Narrative (Long)**.
 
+## Research Question
+How does query verbosity affect the relative performance of lexical and semantic retrieval methods in medical information retrieval?
+
+## Dataset
+We use the TREC-COVID benchmark collection built on the CORD-19 corpus, covering 50 topics across three verbosity levels: Title, Description, and Narrative;
+
+| Verbosity | Total Words | Avg. Medical Entities | Retention |  Example Query(Topic 1)| 
+|-----------|-------------|-----------------------|-----------|------------------------|
+| **Title** (short) | 3.24 | 2.22 | 85% | `coronavirus origin` |
+| **Description** (medium) | 10.60 | 3.52 | 52% | `what is the origin of COVID-19` |
+| **Narrative** (long) | 23.52 | 8.24 | 63% | `seeking range of information about the SARS-CoV-2 virus’s origin, including its evolution, animal source, and first transmission into humans.` |
+
+
 ## Models Evaluated
 To understand the impact of medical jargon and underlying user intents, we systematically compare:
 * **BM25:** A lexical baseline testing exact keyword matching.
@@ -21,7 +34,8 @@ To understand the impact of medical jargon and underlying user intents, we syste
 * **Hybrid (BM25 + BioDPR):** Combining lexical and semantic approaches using Reciprocal Rank Fusion (RRF).
 
 Performance is evaluated using **nDCG@10** (to ensure the most highly relevant documents appear at the top) and **MAP**
-(to assess overall ranking quality).
+(to assess overall ranking quality). 
+We perform **paired t-tests** to evaluate any significant differences between the results.
 
 ## Repository Structure
 ```text
@@ -41,12 +55,19 @@ ir_project/
 ```bash
 pip install -r requirements.txt
 ```
+## Version requirements
+Python 3.8+, and Java are required to be able to successfully run the notebooks
 
 ## How to Run
 TODO
+
 
 ## Key Findings
 * **Verbosity Matters:** Providing more query context does not always improve performance. Description queries (medium length) consistently outperformed both Title (short) and Narrative (long) queries across models.
 * **Lexical Baselines are Strong:** BM25 remains a powerful and interpretable baseline, excelling on short, exact-match queries.
 * **The Hybrid Advantage:** The Hybrid model (BM25 + BioDPR) achieved the highest overall performance on Description queries (nDCG@10: 0.7791), successfully balancing exact constraints with semantic understanding.
 * **Domain Adaptation is Necessary:** General dense models (DPR) underperformed significantly in this specialized domain, whereas the medical-specific BioDPR model improved semantic retrieval.
+
+## Limitations
+* **Results are scoped** by the TREC-COVID dataset due to its nature, potentially misrepresentative of real world applications. More general medical dataset is recommended for future work.
+* **Selection of IR models**: Limitation by the models selected for experimentation. Improving upon findings of the models, or exploring domain specific models is recommended for future research. 
